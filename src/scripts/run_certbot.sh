@@ -15,7 +15,8 @@ fi
 exit_code=0
 set -x
 
-gsutil -m cp -R gs://$CERT_BUCKET /etc/letsencrypt
+# Download cert if its there
+gsutil -m cp -R gs://$CERT_BUCKET/* /etc/letsencrypt/
 
 
 # Loop over every domain we can find

@@ -76,7 +76,7 @@ get_certificate() {
         $letsencrypt_url -d $1 --http-01-port 1337 \
         --standalone --preferred-challenges http-01 --debug
 
-    gsutil -m cp -R /etc/letsencrypt gs://$CERT_BUCKET
+    gsutil -m cp -R /etc/letsencrypt/* gs://$CERT_BUCKET
 }
 
 # Given a domain name, return true if a renewal is required (last renewal
