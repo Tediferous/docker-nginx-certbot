@@ -8,9 +8,17 @@ if [ -z "$CERTBOT_EMAIL" ]; then
     error "CERTBOT_EMAIL environment variable undefined; certbot will do nothing"
     exit 1
 fi
-
+if [ -z "$CERT_BUCKET" ]; then
+    error "Please set CERT_BUCKET env"
+    exit 1
+fi
 exit_code=0
 set -x
+
+# Download cert if its there
+gsutil -m cp -R gs://$CERT_BUCKET/* /etc/letsencrypt/
+
+
 # Loop over every domain we can find
 for domain in $(parse_domains); do
     if is_renewal_required $domain; then
